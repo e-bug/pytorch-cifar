@@ -110,12 +110,12 @@ class SENet(nn.Module):
 
 
 def SENet18():
-    return SENet(PreActBlock, [2,2,2,2])
+    return SENet(PreActBlock, [2, 2, 2, 2])
 
 
 def test():
     net = SENet18()
-    y = net(torch.randn(1,3,32,32))
+    y = net(torch.randn(1, 3, 32, 32))
     print(y.size())
 
 # test()

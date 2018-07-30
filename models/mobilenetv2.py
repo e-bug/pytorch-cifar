@@ -40,7 +40,7 @@ class Block(nn.Module):
 class MobileNetV2(nn.Module):
     # (expansion, out_planes, num_blocks, stride)
     cfg = [(1,  16, 1, 1),
-           (6,  24, 2, 1),  # NOTE: change stride 2 -> 1 for CIFAR10
+           (6,  24, 2, 1),  # NOTE: change stride 2 -> 1 for CIFAR-10
            (6,  32, 3, 2),
            (6,  64, 4, 2),
            (6,  96, 3, 1),
@@ -70,7 +70,7 @@ class MobileNetV2(nn.Module):
         out = F.relu(self.bn1(self.conv1(x)))
         out = self.layers(out)
         out = F.relu(self.bn2(self.conv2(out)))
-        # NOTE: change pooling kernel_size 7 -> 4 for CIFAR10
+        # NOTE: change pooling kernel_size 7 -> 4 for CIFAR-10
         out = F.avg_pool2d(out, 4)
         out = out.view(out.size(0), -1)
         out = self.linear(out)
@@ -79,7 +79,7 @@ class MobileNetV2(nn.Module):
 
 def test():
     net = MobileNetV2()
-    x = torch.randn(2,3,32,32)
+    x = torch.randn(2, 3, 32, 32)
     y = net(x)
     print(y.size())
 

@@ -30,7 +30,7 @@ class Bottleneck(nn.Module):
         out = self.bn3(self.conv3(out))
         x = self.shortcut(x)
         d = self.out_planes
-        out = torch.cat([x[:,:d,:,:]+out[:,:d,:,:], x[:,d:,:,:], out[:,d:,:,:]], 1)
+        out = torch.cat([x[:, :d, :, :] + out[:, :d, :, :], x[:, d:, :, :], out[:, d:, :, :]], 1)
         out = F.relu(out)
         return out
 
@@ -53,8 +53,8 @@ class DPN(nn.Module):
     def _make_layer(self, in_planes, out_planes, num_blocks, dense_depth, stride):
         strides = [stride] + [1]*(num_blocks-1)
         layers = []
-        for i,stride in enumerate(strides):
-            layers.append(Bottleneck(self.last_planes, in_planes, out_planes, dense_depth, stride, i==0))
+        for i, stride in enumerate(strides):
+            layers.append(Bottleneck(self.last_planes, in_planes, out_planes, dense_depth, stride, i == 0))
             self.last_planes = out_planes + (i+2) * dense_depth
         return nn.Sequential(*layers)
 
@@ -72,26 +72,27 @@ class DPN(nn.Module):
 
 def DPN26():
     cfg = {
-        'in_planes': (96,192,384,768),
-        'out_planes': (256,512,1024,2048),
-        'num_blocks': (2,2,2,2),
-        'dense_depth': (16,32,24,128)
+        'in_planes': (96, 192, 384, 768),
+        'out_planes': (256, 512, 1024, 2048),
+        'num_blocks': (2, 2, 2, 2),
+        'dense_depth': (16, 32, 24, 128)
     }
     return DPN(cfg)
 
+
 def DPN92():
     cfg = {
-        'in_planes': (96,192,384,768),
-        'out_planes': (256,512,1024,2048),
-        'num_blocks': (3,4,20,3),
-        'dense_depth': (16,32,24,128)
+        'in_planes': (96, 192, 384, 768),
+        'out_planes': (256, 512, 1024, 2048),
+        'num_blocks': (3, 4, 20, 3),
+        'dense_depth': (16, 32, 24, 128)
     }
     return DPN(cfg)
 
 
 def test():
     net = DPN92()
-    x = torch.randn(1,3,32,32)
+    x = torch.randn(1, 3, 32, 32)
     y = net(x)
     print(y)
 
