@@ -1,18 +1,53 @@
-# Train CIFAR10 with PyTorch
+# Train CIFAR-10 and CIFAR-100 with PyTorch
 
-I'm playing with [PyTorch](http://pytorch.org/) on the CIFAR10 dataset.
+Train deep networks with [PyTorch](http://pytorch.org/) on the CIFAR-10 and CIFAR-100 datasets.
 
-## Pros & cons
-Pros:
-- Built-in data loading and augmentation, very nice!
-- Training is fast, maybe even a little bit faster.
-- Very memory efficient!
+## Usage
+Train [ResNet56](https://arxiv.org/abs/1512.03385) on CIFAR-10 
+- with batch size `128`
+- for`182` epochs
+- with initial learning rate `0.1`
+- and a piecewise constant learning rate decay function 
+- with a decay factor of `0.1` (default) at epochs `91` and `136`
+- using the first two GPUs
+- storing `10` state checkpoints
+- and printing a progress bar
 
-Cons:
-- No progress bar, sad :(
-- No built-in log.
+```bash
+# setup options
+MODEL=resnet56
+BATCH_SIZE=128
+NUM_EPOCHS=182
+NUM_CKPTS=10
+LR=0.1
+DECAY_POLICY=pconst
+LR_MILESTONES="91 136"
+export CUDA_VISIBLE_DEVICES=0,1
 
-## Accuracy
+# run 
+SCRIPT=main.py
+
+python $SCRIPT \
+  --model ${MODEL} \
+  --batch_size ${BATCH_SIZE} \
+  --num_epochs ${NUM_EPOCHS} \
+  --num_ckpts ${NUM_CKPTS} \
+  --progress_bar \
+  --lr ${LR} \
+  --lr_decay_policy ${DECAY_POLICY} \
+  --lr_milestones ${LR_MILESTONES}
+```
+```bash
+==> Preparing data..
+Files already downloaded and verified
+Files already downloaded and verified
+==> Building resnet56 model..
+
+Epoch: 0
+ [==>........................... 19/391 ..............................]  Step: 1s392ms | Tot: 24s295ms | lr: 1.000e-01 | Loss: 2.173 | Acc: 17.393% (423/2432)
+```
+
+## Accuracy (as reported by @kuangliu)
 | Model             | Acc.        |
 | ----------------- | ----------- |
 | [VGG16](https://arxiv.org/abs/1409.1556)              | 92.64%      |
@@ -26,10 +61,3 @@ Cons:
 | [PreActResNet18](https://arxiv.org/abs/1603.05027)    | 95.11%      |
 | [DPN92](https://arxiv.org/abs/1707.01629)             | 95.16%      |
 
-## Learning rate adjustment
-I manually change the `lr` during training:
-- `0.1` for epoch `[0,150)`
-- `0.01` for epoch `[150,250)`
-- `0.001` for epoch `[250,350)`
-
-Resume the training with `python main.py --resume --lr=0.01`
