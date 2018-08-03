@@ -129,44 +129,44 @@ class Cifar10ResNet(nn.Module):
         return out
 
 
-def ResNet18():
-    return ResNet(BasicBlock, [2, 2, 2, 2])
+def ResNet18(num_classes=10):
+    return ResNet(BasicBlock, [2, 2, 2, 2], num_classes=num_classes)
 
 
-def ResNet20():
-    return Cifar10ResNet(BasicBlock, n=3)
+def ResNet20(num_classes=10):
+    return Cifar10ResNet(BasicBlock, n=3, num_classes=num_classes)
 
 
-def ResNet32():
-    return Cifar10ResNet(BasicBlock, n=5)
+def ResNet32(num_classes=10):
+    return Cifar10ResNet(BasicBlock, n=5, num_classes=num_classes)
 
 
-def ResNet34():
-    return ResNet(BasicBlock, [3, 4, 6, 3])
+def ResNet34(num_classes=10):
+    return ResNet(BasicBlock, [3, 4, 6, 3], num_classes=num_classes)
 
 
-def ResNet44():
-    return Cifar10ResNet(BasicBlock, n=7)
+def ResNet44(num_classes=10):
+    return Cifar10ResNet(BasicBlock, n=7, num_classes=num_classes)
 
 
-def ResNet50():
-    return ResNet(Bottleneck, [3, 4, 6, 3])
+def ResNet50(num_classes=10):
+    return ResNet(Bottleneck, [3, 4, 6, 3], num_classes=num_classes)
 
 
-def ResNet56():
-    return Cifar10ResNet(BasicBlock, n=9)
+def ResNet56(num_classes=10):
+    return Cifar10ResNet(BasicBlock, n=9, num_classes=num_classes)
 
 
-def ResNet101():
-    return ResNet(Bottleneck, [3, 4, 23, 3])
+def ResNet101(num_classes=10):
+    return ResNet(Bottleneck, [3, 4, 23, 3], num_classes=num_classes)
 
 
-def ResNet110():
-    return Cifar10ResNet(BasicBlock, n=18)
+def ResNet110(num_classes=10):
+    return Cifar10ResNet(BasicBlock, n=18, num_classes=num_classes)
 
 
-def ResNet152():
-    return ResNet(Bottleneck, [3, 8, 36, 3])
+def ResNet152(num_classes=10):
+    return ResNet(Bottleneck, [3, 8, 36, 3], num_classes=num_classes)
 
 
 def test():
