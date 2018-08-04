@@ -216,7 +216,8 @@ elif os.path.isdir(args.log_dir) and len(ckpts):
 #                                                     Optimization                                                     #
 # ==================================================================================================================== #
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.SGD(net.parameters(), lr=args.lr, momentum=args.momentum, weight_decay=5e-4)
+optimizer = optim.SGD(net.parameters(), lr=args.lr, momentum=args.momentum, 
+                      weight_decay=args.weight_decay, nesterov=False)
 
 scheduler_name = args.lr_decay_policy
 if scheduler_name == 'step':
