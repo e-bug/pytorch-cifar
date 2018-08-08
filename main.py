@@ -325,5 +325,5 @@ for epoch in range(start_epoch, args.num_epochs):
     train(epoch)
     test(epoch)
 time_elapsed = time.time() - since + ckpt_time_elapsed
-print('Training complete in %.0fm %.0fs' % (time_elapsed // 60, time_elapsed % 60))
+print('\nTraining complete in %.0fm %.0fs' % (time_elapsed // 60, time_elapsed % 60))
 print('Best val Acc: %4f' % best_acc)
