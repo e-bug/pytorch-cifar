@@ -190,7 +190,7 @@ ckpt_time_elapsed = 0  # time elapsed training to last checkpoint epoch
 
 ckpts = []
 if args.num_ckpts:
-    ckpts = np.linspace(0, args.num_epochs, args.num_ckpts, dtype=int)
+    ckpts = np.linspace(0, args.num_epochs-1, args.num_ckpts, dtype=int)
 elif args.save_every:
     ckpts = np.arange(0, args.num_epochs, args.save_every, dtype=int)
 
